@@ -1,0 +1,17 @@
+{
+	"require": {
+		"slim/slim": "2.*",
+		"slim/views": "0.1.*",
+		"semantic/ui": "dev-master",
+		"illuminate/database": "v4.1.30"
+
+	},
+
+	"autoload": {
+		"psr-4": {
+			"Controller\\": "controllers",
+			"Model\\": "models",
+			"View\\": "views"
+		}
+	}
+}
