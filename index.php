@@ -11,36 +11,54 @@ class BaseController{
 }
 
 class Controller extends BaseController{
+	protected $message;
+	public function __construct(){
+		$this->message="";
+	}
+
 	public function validate(){
-		//$app = static::$slim;
-		//$app = \Slim\Slim::getInstance();
 		echo "send() called";
-		//echo $this->app->request->params('topic')."<br>";
-		//echo $this->app->request->params('test')."<br>";
 
-		echo $Evaluatee['Firstname'] = $this->app->request->params('PBEfirst-name')."<br>";
-		echo $Evaluatee['Lastname'] = $this->app->request->params('PBElast-name')."<br>";
+		$Evaluatee['Firstname'] = $this->app->request->params('PBEfirst-name');
+		$Evaluatee['Lastname'] = $this->app->request->params('PBElast-name')."<br>";
 
-		echo $Evaluator['Firstname'] = $this->app->request->params('EvaluatorFirstName')."<br>";
-		echo $Evaluator['Lastname'] = $this->app->request->params('EvaluatorLastName')."<br>";
+		$Evaluator['Firstname'] = $this->app->request->params('EvaluatorFirstName');
+		$Evaluator['Lastname'] = $this->app->request->params('EvaluatorLastName')."<br>";
 
-		echo $Evaluation['topic'] = $this->app->request->params('topic')."<br>";
-		echo $Evaluation['author'] = $this->app->request->params('author')."<br>";
-		echo $Evaluation['length'] = $this->app->request->params('length')."<br>";
-		echo $Evaluation['spelling'] = $this->app->request->params('spelling')."<br>";
-		echo $Evaluation['rating'] = $this->app->request->params('rating')."<br>";
-		echo $Evaluation['comments'] = $this->app->request->params('comments')."<br>";
+		$Evaluation['topic'] = $this->app->request->params('topic')."<br>";
+		$Evaluation['author'] = $this->app->request->params('author')."<br>";
+		$Evaluation['length'] = $this->app->request->params('length')."<br>";
+		$Evaluation['spelling'] = $this->app->request->params('spelling')."<br>";
+		$Evaluation['rating'] = $this->app->request->params('rating')."<br>";
+		$Evaluation['comments'] = $this->app->request->params('comments')."<br>";
+
+		$this->message = "Person Being Evaluated : ".$Evaluatee['Firstname'].$Evaluatee['Lastname'].
+					"Evaluator : ".$Evaluator['Firstname'].$Evaluator['Lastname'].
+					"Is the topic of this paper closely related to this course? : ".$Evaluation['topic'].
+					"Did the author have adequate references and were they approximately cited in the paper? : ".$Evaluation['author'].
+					"Was the paper an appropriate length to support the points the author intended? : ".$Evaluation['length'].
+					"Was the paper free of spelling and grammatical errors? : ".$Evaluation['spelling'].
+					"Please assign this paper an evaluation rating : ".$Evaluation['rating'].
+					"Comments : ".$Evaluation['comments'];
+
+					echo $this->message;
+
+					$this->send();
 
 	}
 
 	public function send(){
-
+		$to = "ikoss@fit.edu";
+		$to = "tsc.joshua@gmail.com";
+		$sublject= "Evaluation Form";
+		
+		mail($to, $sublject, $this->message);
 
 	}
 
 	public function displayForm(){
 		?>
-		<div class="main-content" style="padding-left: 5em; padding-top:0; width:40%;">
+		<div id="main-content" class="ui raised segment" style="margin-left:5em; padding-right: 5em; padding-left: 5em; padding-top:3em; width:40%; color:grey">
 			<form class="ui form" method="post" action="index.php">
 				<h4 class="ui dividing header"> Person Being Evaluated</h4>
 				<!--<div class="two fields">-->
@@ -64,17 +82,17 @@ class Controller extends BaseController{
 				<div clas="field">
 					<ol class="ui list">
 						<li>
-							<label for="alone">Is the topic of thisn paper closely related to this course</label>
+							<label for="alone">Is the topic of this paper closely related to this course</label>
 							<div class="field">
 								<div>
-									<input type="radio"   name="topic" value=1>
+									<input type="radio"   name="topic" value="Yes">
 									<label>Yes</label>
 								</div>
 							</div>
 
 							<div class="field">
 								<div>
-									<input type="radio"  name="topic" value=0>
+									<input type="radio"  name="topic" value="No">
 									<label>No</label>
 								</div>
 							</div>
@@ -85,14 +103,14 @@ class Controller extends BaseController{
 							<label>Did the author have adequate references and were they approximately cited in the paper?</label>
 							<div class="field">
 								<div>
-									<input type="radio"   name="author" value=1>
+									<input type="radio"   name="author" value="Yes">
 									<label>Yes</label>
 								</div>
 							</div>
 
 							<div class="field">
 								<div>
-									<input type="radio"  name="author" value=0>
+									<input type="radio"  name="author" value="No">
 									<label>No</label>
 								</div>
 							</div>
@@ -102,14 +120,14 @@ class Controller extends BaseController{
 							<label>Was the paper an appropriate length to support the points the author intended?</label>
 							<div class="field">
 								<div>
-									<input type="radio"   name="length" value=1>
+									<input type="radio"   name="length" value="Yes">
 									<label>Yes</label>
 								</div>
 							</div>
 
 							<div class="field">
 								<div>
-									<input type="radio"  name="length" value=0>
+									<input type="radio"  name="length" value="No">
 									<label>No</label>
 								</div>
 							</div>
@@ -119,14 +137,14 @@ class Controller extends BaseController{
 							<label>Was the paper free of spelling and grammatical errors?</label>
 							<div class="field">
 								<div>
-									<input type="radio"   name="spelling" value=1>
+									<input type="radio"   name="spelling" value="Yes">
 									<label>Yes</label>
 								</div>
 							</div>
 
 							<div class="field">
 								<div>
-									<input type="radio"  name="spelling" value=0>
+									<input type="radio"  name="spelling" value="No">
 									<label>No</label>
 								</div>
 							</div>
@@ -136,8 +154,8 @@ class Controller extends BaseController{
 							<label>Please assign this paper an evaluation rating</label>
 							<div class="field">
 								<div>
-									<input type="radio"   name="rating" value=10>
-									<label>10(Perfect in every way)</label>
+									<input type="radio"   name="rating" value="Yes""No">
+									<label>10 (Perfect in every way)</label>
 								</div>
 							</div>
 
@@ -150,7 +168,7 @@ class Controller extends BaseController{
 							<div class="field">
 								<div>
 									<input type="radio"  name="rating" value=9>
-									<label>9.0 Excellent</label>
+									<label>9."No" Excellent</label>
 								</div>
 							</div>
 							<div class="field">
@@ -162,7 +180,7 @@ class Controller extends BaseController{
 							<div class="field">
 								<div>
 									<input type="radio"  name="rating" value=8>
-									<label>8.0 Good</label>
+									<label>8."No" Good</label>
 								</div>
 							</div>
 							<div class="field">
@@ -174,7 +192,7 @@ class Controller extends BaseController{
 							<div class="field">
 								<div>
 									<input type="radio"  name="rating" value=7>
-									<label>7.0 Below Average</label>
+									<label>7."No" Below Average</label>
 								</div>
 							</div>
 							<div class="field">
