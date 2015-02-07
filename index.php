@@ -11,12 +11,31 @@ class BaseController{
 }
 
 class Controller extends BaseController{
-	public function send(){
+	public function validate(){
 		//$app = static::$slim;
 		//$app = \Slim\Slim::getInstance();
-		echo $this->app->request->params('topic')."<br>";
-		echo $this->app->request->params('test')."<br>";
-		echo"send() called";
+		echo "send() called";
+		//echo $this->app->request->params('topic')."<br>";
+		//echo $this->app->request->params('test')."<br>";
+
+		echo $Evaluatee['Firstname'] = $this->app->request->params('PBEfirst-name')."<br>";
+		echo $Evaluatee['Lastname'] = $this->app->request->params('PBElast-name')."<br>";
+
+		echo $Evaluator['Firstname'] = $this->app->request->params('EvaluatorFirstName')."<br>";
+		echo $Evaluator['Lastname'] = $this->app->request->params('EvaluatorLastName')."<br>";
+
+		echo $Evaluation['topic'] = $this->app->request->params('topic')."<br>";
+		echo $Evaluation['author'] = $this->app->request->params('author')."<br>";
+		echo $Evaluation['length'] = $this->app->request->params('length')."<br>";
+		echo $Evaluation['spelling'] = $this->app->request->params('spelling')."<br>";
+		echo $Evaluation['rating'] = $this->app->request->params('rating')."<br>";
+		echo $Evaluation['comments'] = $this->app->request->params('comments')."<br>";
+
+	}
+
+	public function send(){
+
+
 	}
 
 	public function displayForm(){
@@ -38,7 +57,7 @@ class Controller extends BaseController{
 					<label>First Name</label>
 					<input type="text" name="EvaluatorFirstName" placeholder="First Name">
 					<label>Last Name</label>
-					<input type="text" name "EvaluatorLastName" placeholder="Last Name">
+					<input type="text" name="EvaluatorLastName" placeholder="Last Name">
 				</div>
 
 				<h4 class="ui dividing header">Evaluation</h4>
@@ -179,8 +198,8 @@ class Controller extends BaseController{
 					</p>
 				</div>
 				<div class="ui divider"></div>
-				<div classs="field">
-					<textarea name="test" data-validate="" data-prompt=""></textarea><!-----------ATTENTION -->
+				<div class="field">
+					<textarea name="comments" data-validate="" data-prompt=""></textarea><!-----------ATTENTION -->
 				</div>
 
 				<div class="field">
@@ -203,7 +222,7 @@ $app = new \Slim\Slim(array('mode' => 'development',
 							'debug' => true
 							));
 
-$app->post('/', '\Controller:send');
+$app->post('/', '\Controller:validate');
 $app->get('/', '\Controller:displayForm');
 $app->run();
 
