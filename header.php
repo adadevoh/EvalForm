@@ -26,7 +26,102 @@
 				form.form(validations, { inline: false });
 			});*/
 
-		$('.ui.form')
+$('.ui.form')
+	.form({
+		EvaluateeFN:{
+			identifier: 'PBEfirst-name',
+			rules: [
+			{
+				type: 'empty',
+				prompt: 'Please Enter the Evaluatee\'s First Name'
+			}]
+		},
+		EvaluateeLN:{
+			identifier: 'PBElast-name',
+			rules: [
+			{
+				type: 'empty',
+				prompt: 'Please Enter the Evaluatee\'s Last Name'
+			}]
+		},
+		EvaluatorFN:{
+			identifier: 'EvaluatorFirstName',
+			rules: [
+			{
+				type: 'empty',
+				prompt: 'Please Enter the Evaluator\'s First Name'
+			}]
+		},
+		EvaluatorLN:{
+			identifier: 'EvaluatorLastName',
+			rules: [
+			{
+				type: 'empty',
+				prompt: 'Please Enter the Evaluator\'s Last Name'
+			}]
+		},
+		Topic:{
+			identifier: 'topic',
+			rules: [
+			{
+				type: 'checked',
+				prompt: 'Is the topic of this paper closely related to this course?'
+			}]
+		},
+		Author:{
+			identifier: 'author',
+			rules: [
+			{
+				type: 'checked',
+				prompt: 'Did the author have adequate references and were they approximately cited in the paper?'
+			}]
+		},
+		Length:{
+			identifier: 'length',
+			rules: [
+			{
+				type: 'checked',
+				prompt: 'Was the paper an appropriate length to support the points the author intended?'
+			}]
+		},
+		Spelling:{
+			identifier: 'spelling',
+			rules: [
+			{
+				type: 'checked',
+				prompt: 'Was the paper free of spelling and grammatical errors?'
+			}]
+		},
+		Spelling:{
+			identifier: 'spelling',
+			rules: [
+			{
+				type: 'checked',
+				prompt: 'Was the paper free of spelling and grammatical errors?'
+			}]
+		},
+		Rating:{
+			identifier: 'rating',
+			rules: [
+			{
+				type: 'checked',
+				prompt: 'Please assign this paper an evaluation rating'
+			}]
+		},
+		Comments:{
+			identifier: 'comments',
+			optional: true,
+			rules: [
+			{
+				type: 'empty',
+				prompt: 'Please assign this paper an evaluation rating'
+			}]
+		}
+
+
+	});
+
+		/*$('.ui.form')
   .form({
     name: {
       identifier  : 'EvaluatorFirstName',
@@ -78,7 +173,7 @@
       ]
     }
   })
-;
+;*/
 
 		});
 		</script>

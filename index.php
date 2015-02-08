@@ -13,6 +13,7 @@ class BaseController{
 class Controller extends BaseController{
 	protected $message;
 	public function __construct(){
+		parent::__construct();
 		$this->message="";
 	}
 
@@ -32,8 +33,8 @@ class Controller extends BaseController{
 		$Evaluation['rating'] = $this->app->request->params('rating')."<br>";
 		$Evaluation['comments'] = $this->app->request->params('comments')."<br>";
 
-		$this->message = "Person Being Evaluated : ".$Evaluatee['Firstname'].$Evaluatee['Lastname'].
-					"Evaluator : ".$Evaluator['Firstname'].$Evaluator['Lastname'].
+		$this->message = "Person Being Evaluated : ".$Evaluatee['Firstname']." ".$Evaluatee['Lastname'].
+					"Evaluator : ".$Evaluator['Firstname']." ".$Evaluator['Lastname'].
 					"Is the topic of this paper closely related to this course? : ".$Evaluation['topic'].
 					"Did the author have adequate references and were they approximately cited in the paper? : ".$Evaluation['author'].
 					"Was the paper an appropriate length to support the points the author intended? : ".$Evaluation['length'].
@@ -43,7 +44,7 @@ class Controller extends BaseController{
 
 					echo $this->message;
 
-					$this->send();
+					//$this->send();
 
 	}
 
@@ -58,7 +59,7 @@ class Controller extends BaseController{
 
 	public function displayForm(){
 		?>
-		<div id="main-content" class="ui raised segment" style="margin-left:5em; padding-right: 5em; padding-left: 5em; padding-top:3em; width:40%; color:grey">
+		<div id="main-content" class="ui raised segment">
 			<form class="ui form" method="post" action="index.php">
 				<h4 class="ui dividing header"> Person Being Evaluated</h4>
 				<!--<div class="two fields">-->
@@ -66,23 +67,23 @@ class Controller extends BaseController{
 						<label>First Name</label>
 						<input type="text" name="PBEfirst-name" placeholder="First Name" value="" data-validate="empty" data-prompt="Please enter name">
 						<label>Last Name</label>
-						<input type="text" name="PBElast-name" placeholder="Last Name">
+						<input type="text" name="PBElast-name" placeholder="Last Name" value="">
 					</div>
 				<!--</div>-->
 
 				<h4 class="ui dividing header">Evaluator</h4>
 				<div class="field">
 					<label>First Name</label>
-					<input type="text" name="EvaluatorFirstName" placeholder="First Name">
+					<input type="text" name="EvaluatorFirstName" placeholder="First Name" value="">
 					<label>Last Name</label>
-					<input type="text" name="EvaluatorLastName" placeholder="Last Name">
+					<input type="text" name="EvaluatorLastName" placeholder="Last Name" value="">
 				</div>
 
 				<h4 class="ui dividing header">Evaluation</h4>
 				<div clas="field">
 					<ol class="ui list">
 						<li>
-							<label for="alone">Is the topic of this paper closely related to this course</label>
+							<label for="alone">Is the topic of this paper closely related to this course?</label>
 							<div class="field">
 								<div>
 									<input type="radio"   name="topic" value="Yes">
@@ -207,7 +208,6 @@ class Controller extends BaseController{
 				</div>
 
 				<h4 class="ui dividing header">Comments</h4>
-				<!--<input type="text" class="ui reply form">-->
 				<div class="field">
 					<p>
 						Please enter your written comments here. You must include at least a couple of
@@ -217,13 +217,13 @@ class Controller extends BaseController{
 				</div>
 				<div class="ui divider"></div>
 				<div class="field">
-					<textarea name="comments" data-validate="" data-prompt=""></textarea><!-----------ATTENTION -->
+					<textarea name="comments"></textarea>
 				</div>
 
-				<div class="field">
-					<input type="submit" class= "ui submit button" value="send">
-					
-				</div><button type="reset" class="ui submit button" value="reset"></button>
+				<div class="ui error message"></div>
+
+				<div class="ui blue submit button">Submit</div>
+				<div class="ui reset button">Reset</div>
 			</form>
 
 		</div>

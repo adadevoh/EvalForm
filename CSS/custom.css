@@ -8,9 +8,18 @@ body {
 	background-color: linear-gradient(to bottom,  #efefdc 39%,#98bede 77%); /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#efefdc', endColorstr='#98bede',GradientType=0 ); /* IE6-9 */
 	
-	padding-top: 4em;
+	padding-top: 3em;
 	/*word-spacing: 0.15em;*/
 
+}
+
+#main-content{
+	margin-left:5em;
+	padding-right: 5em;
+	padding-left: 5em;
+	padding-top:3em;
+	width:40%;
+	/*color:grey*/
 }
 
 .ui.inverted.menu{
