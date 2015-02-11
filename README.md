@@ -4,6 +4,6 @@ Current example is reading/writing course.
 Upon submission the survery is sent to the intructor via email.
 
 ## This app is powered by:
-Slim : http://www.slimframework.com/
-Semantic UI: http://semantic-ui.com/
-and Twig templates: http://twig.sensiolabs.org/
+*[Slim] (http://www.slimframework.com/)
+*[Semantic UI] (http://semantic-ui.com/)
+*[and Twig templates] (http://twig.sensiolabs.org/)
