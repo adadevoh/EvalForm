@@ -1,0 +1,25 @@
+{% if flash.error %}
+	<div class="ui icon message error">
+		<div class="content">
+			<p>{{flash.error}}</p>
+		</div>
+	</div>
+{% elseif flash.success %}
+	<div class="ui icon message success">
+		<div class="content">
+			<p>{{flash.success}}</p>
+		</div>
+	</div>
+{% elseif flash.warning %}
+	<div class="ui icon message warning">
+		<div class="content">
+			<p>{{flash.warning}}</p>
+		</div>
+	</div>
+{% elseif flash.info %}
+	<div class="ui icon message info">
+		<div class="content">
+			<p>{{flash.info}}</p>
+		</div>
+	</div>
+{% endif %}
