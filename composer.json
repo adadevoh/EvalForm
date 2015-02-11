@@ -3,9 +3,21 @@
 		"slim/slim": "2.*",
 		"slim/views": "0.1.*",
 		"semantic/ui": "dev-master",
-		"illuminate/database": "v4.1.30"
-
+		"illuminate/database": "v4.1.30",
+		"twig/twig": "dev-master",
+		"enterprise/FIT-PHP-Namespace": "1.5.0"
 	},
+
+	"minimum-stability": "dev",
+	"prefer-stable": true,
+
+	"repositories":[
+		{
+			"url": "http://phppackages.fit.edu",
+			"type": "composer"
+		}
+	],
+	
 
 	"autoload": {
 		"psr-4": {

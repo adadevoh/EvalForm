@@ -1,6 +1,11 @@
 <?php 
 include_once"header.php";
 require 'vendor/autoload.php';
+?>
+<div id="main-content" class="ui raised segment" style="z-index: 1000">
+	<?php $object = new Controller;
+			$object->displayConfirmation();//empty because I created a new instance of controller, need to use current instance ?>
+<?php
 
 class BaseController{
 	protected $app;
@@ -12,54 +17,104 @@ class BaseController{
 
 class Controller extends BaseController{
 	protected $message;
+	protected $confirmation;
 	public function __construct(){
 		parent::__construct();
-		$this->message="";
+		$this->message = "";
+		$this->confirmation = "confirmation test";
+	}
+
+	//validate each item in array making sure none is an empty string
+	public function isEmpty($myArray){
+
+		foreach ($myArray as $key => $value) {
+			if($myArray[$key] == ""){
+				return true;
+				//echo"true";
+			}				
+		}
+
+		return false;
+		//echo"false";
 	}
 
 	public function validate(){
-		echo "send() called";
 
-		$Evaluatee['Firstname'] = $this->app->request->params('PBEfirst-name');
-		$Evaluatee['Lastname'] = $this->app->request->params('PBElast-name')."<br>";
+		//$this->displayConfirmation();
+
+		$Evaluatee = array('Firstname' => $this->app->request->params('PBEfirst-name'),
+							'Lastname' => $this->app->request->params('PBElast-name'));
+
+		//$Evaluatee['Firstname'] = $this->app->request->params('PBEfirst-name');
+		//$Evaluatee['Lastname'] = $this->app->request->params('PBElast-name');
 
 		$Evaluator['Firstname'] = $this->app->request->params('EvaluatorFirstName');
-		$Evaluator['Lastname'] = $this->app->request->params('EvaluatorLastName')."<br>";
+		$Evaluator['Lastname'] = $this->app->request->params('EvaluatorLastName');
 
-		$Evaluation['topic'] = $this->app->request->params('topic')."<br>";
-		$Evaluation['author'] = $this->app->request->params('author')."<br>";
-		$Evaluation['length'] = $this->app->request->params('length')."<br>";
-		$Evaluation['spelling'] = $this->app->request->params('spelling')."<br>";
-		$Evaluation['rating'] = $this->app->request->params('rating')."<br>";
-		$Evaluation['comments'] = $this->app->request->params('comments')."<br>";
+		$Evaluation['topic'] = $this->app->request->params('topic');
+		$Evaluation['author'] = $this->app->request->params('author');
+		$Evaluation['length'] = $this->app->request->params('length');
+		$Evaluation['spelling'] = $this->app->request->params('spelling');
+		$Evaluation['rating'] = $this->app->request->params('rating');
+		$Evaluation['comments'] = $this->app->request->params('comments');
 
-		$this->message = "Person Being Evaluated : ".$Evaluatee['Firstname']." ".$Evaluatee['Lastname'].
-					"Evaluator : ".$Evaluator['Firstname']." ".$Evaluator['Lastname'].
-					"Is the topic of this paper closely related to this course? : ".$Evaluation['topic'].
-					"Did the author have adequate references and were they approximately cited in the paper? : ".$Evaluation['author'].
-					"Was the paper an appropriate length to support the points the author intended? : ".$Evaluation['length'].
-					"Was the paper free of spelling and grammatical errors? : ".$Evaluation['spelling'].
-					"Please assign this paper an evaluation rating : ".$Evaluation['rating'].
+		/*for($i=0; $i<2; $i++){
+			if($Evaluatee[$i] == "")
+				return false;
+		}*/
+
+		/*foreach ($Evaluatee as $name => $value) {
+			if($Evaluatee[$name] == "")
+				return false;
+			# code...
+			echo"true";
+		}*/
+		if($this->isEmpty($Evaluatee)){
+			$this->confirmation ="Sorry you did not complete the survey. Try again.";
+			//return false;
+		}
+		if($this->isEmpty($Evaluator)){
+			$this->confirmation ="Sorry you did not complete the survey. Try again.";
+			//return false;
+		}
+		if($this->isEmpty($Evaluation)){
+			$this->confirmation ="Sorry you did not complete the survey. Try again.";
+			//return false;
+		}
+
+		$this->message = "Person Being Evaluated : ".$Evaluatee['Firstname']." ".$Evaluatee['Lastname']."<br>".
+					"Evaluator : ".$Evaluator['Firstname']." ".$Evaluator['Lastname']."<br>".
+					"Is the topic of this paper closely related to this course? : ".$Evaluation['topic']."<br>".
+					"Did the author have adequate references and were they approximately cited in the paper? : ".$Evaluation['author']."<br>".
+					"Was the paper an appropriate length to support the points the author intended? : ".$Evaluation['length']."<br>".
+					"Was the paper free of spelling and grammatical errors? : ".$Evaluation['spelling']."<br>".
+					"Please assign this paper an evaluation rating : ".$Evaluation['rating']."<br>".
 					"Comments : ".$Evaluation['comments'];
 
-					echo $this->message;
+		echo $this->message;
 
-					//$this->send();
+		//$this->send();
+		echo $this->confirmation = "Your survey has been completed and successfully sent. Thank you";
+
+		//return true;
 
 	}
 
 	public function send(){
 		$to = "ikoss@fit.edu";
 		$to = "tsc.joshua@gmail.com";
-		$sublject= "Evaluation Form";
-		
-		mail($to, $sublject, $this->message);
+		$subject= "Evaluation Form";
+
+
+
+		$mail = new \FIT\Mail();
+		$mail->subject($subject)->to($to)->from("no-reply-@fit.edu")->body($this->message)->send();
 
 	}
 
 	public function displayForm(){
 		?>
-		<div id="main-content" class="ui raised segment">
+		
 			<form class="ui form" method="post" action="index.php">
 				<h4 class="ui dividing header"> Person Being Evaluated</h4>
 				<!--<div class="two fields">-->
@@ -224,20 +279,26 @@ class Controller extends BaseController{
 
 				<div class="ui blue submit button">Submit</div>
 				<div class="ui reset button">Reset</div>
-			</form>
-
-		</div>
-
-
-		<?php //include_once"footer.php"; ?>
+			</form>				
 
 		<?php
 	}
+
+	public function displayConfirmation(){
+		?>
+			<div class="ui positive message"><p><?php echo $this->confirmation; ?></p></div>
+		<?php 
+	}
+
+	public function test(){
+		echo "test called<br>";
+	}
 }
 
-
 $app = new \Slim\Slim(array('mode' => 'development',
-							'debug' => true
+							'debug' => true,
+							'view'=> new \Slim\Views\Twig(),
+							'templates.path'=> 'views'
 							));
 
 $app->post('/', '\Controller:validate');
@@ -245,4 +306,5 @@ $app->get('/', '\Controller:displayForm');
 $app->run();
 
 ?>
-
+</div>
+<?php //include_once"footer.php"; ?>
